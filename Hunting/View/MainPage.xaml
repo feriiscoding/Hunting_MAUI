@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Hunting.View.MainPage"
+             xmlns:view="clr-namespace:Hunting.View"
+             Title="Hunting">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="FieldStyle" TargetType="Image">
+                <Style.Triggers>
+                    <DataTrigger TargetType="Image" Binding="{Binding IsHunter}" Value="true">
+                        <Setter Property="Source" Value="cat7.png"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Image" Binding="{Binding IsPrey}" Value="true">
+                        <Setter Property="Source" Value="tuna.png"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Image" Binding="{Binding IsEmpty}" Value="true">
+                        <Setter Property="Source" Value="empty.png"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <VerticalStackLayout HorizontalOptions="Start" Grid.Row="0">
+            <Label Text="New Game Options"></Label>
+            <HorizontalStackLayout>
+                <Button Command="{Binding NewGameCommand}" Text="3x3" CommandParameter="{Binding Easy}" />
+                <Button Command="{Binding NewGameCommand}" Text="5x5" CommandParameter="{Binding Medium}"/>
+                <Button Command="{Binding NewGameCommand}" Text="7x7" CommandParameter="{Binding Hard}"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        <HorizontalStackLayout HorizontalOptions="End" Grid.Row="0">
+            <Button Command="{Binding LoadGameCommand}" Text="Load Game" />
+            <Button Command="{Binding SaveGameCommand}" Text="Save Game" />
+        </HorizontalStackLayout>
+        <view:AutoSizeContentView Grid.Row="1">
+            <Grid BindableLayout.ItemsSource="{Binding Fields}" HorizontalOptions="Center" WidthRequest="310" HeightRequest="310" RowDefinitions="{Binding TableRowCount}" ColumnDefinitions="{Binding TableColumnCount}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeThickness="1" Padding="1" Grid.Row="{Binding X}" Grid.Column="{Binding Y}">
+                            <Image Source="empty.png" Style="{StaticResource FieldStyle}">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ImageClickCommand}" CommandParameter="{Binding}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </Grid>
+        </view:AutoSizeContentView>
+        <HorizontalStackLayout Grid.Row="2">
+            <Label Text="Turn count: " />
+            <Label Text="{Binding TurnCount}" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout Grid.Row="2" HorizontalOptions="End">
+            <Label Text="{Binding WhosTurn}" />
+        </HorizontalStackLayout>
+    </Grid>
+
+</ContentPage>

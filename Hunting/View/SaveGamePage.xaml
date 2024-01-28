@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Hunting.View.SaveGamePage"
+             Title="Save Game">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="NameStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="Margin" Value="20,20,10,0" />
+            </Style>
+            <Style x:Key="ModifiedStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="Margin" Value="25,0,5,0" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout>
+        <Entry x:Name="saveNameEntry" Placeholder="Add meg a mentés nevét ..." />
+        <Button Text="Mentés" Command="{Binding NewSaveCommand}" CommandParameter="{Binding Source={x:Reference saveNameEntry}, Path=Text}" />
+
+        <ListView ItemsSource="{Binding StoredGames}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Name}" Style="{StaticResource NameStyle}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SaveGameCommand}" CommandParameter="{Binding Name}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label Text="{Binding Modified}" Style="{StaticResource ModifiedStyle}" />
+                        </VerticalStackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </VerticalStackLayout>
+</ContentPage>

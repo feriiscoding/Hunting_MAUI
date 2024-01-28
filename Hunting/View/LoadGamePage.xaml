@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Hunting.View.LoadGamePage"
+             Title="Load Game">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="NameStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="Margin" Value="20,20,10,0" />
+            </Style>
+            <Style x:Key="ModifiedStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="Margin" Value="25,0,5,0" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ListView ItemsSource="{Binding StoredGames}" Margin="4">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <TextCell
+                    Text="{Binding Name}"
+                    TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                    Detail="{Binding Modified}"
+                    Command="{Binding LoadGameCommand}"
+                    CommandParameter="{Binding Name}" />
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="HuntingField.cs" />
+    <Compile Remove="HuntingViewModel.cs" />
+    <Compile Remove="ViewModelBase.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hunting.Model\Hunting.Model.csproj" />
+    <ProjectReference Include="..\Hunting\Hunting.csproj" />
+  </ItemGroup>
+
+</Project>
